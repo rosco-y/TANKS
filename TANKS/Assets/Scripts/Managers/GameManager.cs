@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int m_NumRoundsToWin = 3;//5;        
+    const int m_NumRoundsToWin = 3;//5;        
     public float m_StartDelay = 3f;//3;        
     public float m_EndDelay = 3f;//3;
     public CameraControl m_CameraControl;   
@@ -99,6 +99,17 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RoundEnding()
     {
+        DisableTankControl();
+        m_RoundWinner = null;
+        m_RoundWinner = GetRoundWinner();
+
+        if (m_RoundWinner != null)
+            m_RoundWinner.m_Wins++;
+
+        m_GameWinner = GetGameWinner();
+        string msg = EndMessage();
+        m_MessageText.text = msg;
+
         yield return m_EndWait;
     }
 

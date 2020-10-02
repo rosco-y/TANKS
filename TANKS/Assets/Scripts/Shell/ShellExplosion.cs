@@ -36,6 +36,7 @@ public class ShellExplosion : MonoBehaviour
         }
         m_ExplosionParticles.transform.parent = null;
         m_ExplosionParticles.Play();
+        m_ExplosionAudio.loop = false;
         m_ExplosionAudio.Play();
         Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.main.duration);
         Destroy(gameObject);
