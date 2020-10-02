@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int m_NumRoundsToWin = 5;        
-    public float m_StartDelay = 3f;         
-    public float m_EndDelay = 3f;           
+    public int m_NumRoundsToWin = 3;//5;        
+    public float m_StartDelay = 3f;//3;        
+    public float m_EndDelay = 3f;//3;
     public CameraControl m_CameraControl;   
     public Text m_MessageText;              
     public GameObject m_TankPrefab;         
@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
     private int m_RoundNumber;              
     private WaitForSeconds m_StartWait;     
     private WaitForSeconds m_EndWait;       
-/*    private TankManager m_RoundWinner;
+    private TankManager m_RoundWinner;
     private TankManager m_GameWinner;       
-*/
+
 
     private void Start()
     {
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(RoundPlaying());
         yield return StartCoroutine(RoundEnding());
 
-/*        if (m_GameWinner != null)
+        if (m_GameWinner != null)
         {
             SceneManager.LoadScene(0);
         }
@@ -72,18 +72,28 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(GameLoop());
         }
-*/    }
+    }
 
 
     private IEnumerator RoundStarting()
     {
+        ResetAllTanks();
+        DisableTankControl();
+        m_CameraControl.SetStartPositionAndSize();
+        m_RoundNumber++;
+        m_MessageText.text = "ROUND " + m_RoundNumber;
         yield return m_StartWait;
     }
 
 
     private IEnumerator RoundPlaying()
     {
-        yield return null;
+        EnableTankControl();
+        m_MessageText.text = "";
+        while (!OneTankLeft())
+        {   
+            yield return null;
+        }
     }
 
 
@@ -106,7 +116,6 @@ public class GameManager : MonoBehaviour
         return numTanksLeft <= 1;
     }
 
-/*
     private TankManager GetRoundWinner()
     {
         for (int i = 0; i < m_Tanks.Length; i++)
@@ -150,7 +159,6 @@ public class GameManager : MonoBehaviour
 
         return message;
     }
-*/
 
     private void ResetAllTanks()
     {
