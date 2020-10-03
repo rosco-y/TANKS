@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,13 +27,13 @@ public class GameManager : MonoBehaviour
     {
         m_StartWait = new WaitForSeconds(m_StartDelay);
         m_EndWait = new WaitForSeconds(m_EndDelay);
-
         SpawnAllTanks();
         SetCameraTargets();
 
         StartCoroutine(GameLoop());
     }
 
+    
 
     private void SpawnAllTanks()
     {
@@ -73,8 +75,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(GameLoop());
         }
     }
-
-
+     
     private IEnumerator RoundStarting()
     {
         ResetAllTanks();
