@@ -7,7 +7,7 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    const int m_NumRoundsToWin = 3;//5;        
+    public int m_NumRoundsToWin = 5;//5;        
     public float m_StartDelay = 3f;//3;        
     public float m_EndDelay = 3f;//3;
     public CameraControl m_CameraControl;   
